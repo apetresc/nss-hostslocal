@@ -1,0 +1,112 @@
+
+                                   nss-hostslocal 0.10
+
+    Copyright 2010 Adrian Petrescu <apetresc@gmail.com>
+      * [1]License
+      * [2]News
+      * [3]Overview
+      * [4]Current Status
+      * [5]Documentation
+      * [6]Requirements
+      * [7]Installation
+      * [8]Acknowledgements
+      * [9]Download
+
+License
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as
+   published by the Free Software Foundation; either version 2 of the
+   License, or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+   Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+News
+
+   Wed Dec 1 2010:
+
+   [1] Development begun on version 0.1.
+
+Overview
+
+   nss-hostslocal is a plugin for the GNU Name Service Switch (NSS)
+   functionality of the GNU C Library (glibc) providing per-user
+   .hosts file, analogous to the global /etc/hosts file.
+
+Current Status
+
+   Development has only just begun.
+
+Documentation
+
+   After compiling and installing nss-hostslocal you'll find a new NSS
+   module in /lib:
+     * libnss_hostslocal.so.2
+
+   To activate the NSS module you have to edit the /etc/nsswitch.conf
+   and add hostslocal to the line starting with "hosts:". On Debian this
+   looks like this:
+# /etc/nsswitch.conf
+
+passwd:		compat
+group:		compat
+shadow:		compat
+
+hosts:		files hostslocal dns
+networks:	files
+
+protocols:	db files
+services:	db files
+ethers:		db files
+rpc:		db files
+
+netgroup:	nis
+
+   That's it. You should now be able to resolve hosts specified in a
+   user's ~/.hosts file with all your applications. For a quick check
+   use glibc's getent tool:
+$ getent hosts foo.local
+192.168.50.4	foo.local
+
+   Replace foo with a host name that has been added to the running
+   user's ~/.hosts file.
+
+Requirements
+
+   Currently, nss-hostslocal is tested on Linux only. A fairly modern glibc
+   installation with development headers (2.0 or newer) is required.
+
+   nss-hostslocal was developed and tested on Ubuntu GNU/Linux "Maverick"
+   from December 2010, but it should work on most other Linux distributions
+   (and maybe Unix versions) since it uses GNU autoconf and GNU libtool for
+   source code configuration and shared library management.
+
+Installation
+
+   As this package is made with the GNU autotools you should run
+   ./configure inside the distribution directory for configuring the source
+   tree. After that you should run make for compilation and make install
+   (as root) for installation of nss-hostslocal.
+
+Acknowledgements
+
+   Lennary Poettering and his nss-mdns module which served as a template
+   for this one.
+
+Download
+
+   The newest release is always available from GitHub at:
+   http://github.com/apetresc/nss-hostslocal
+
+   The current release is 0.10
+     __________________________________________________________________________
+
+
+    Adrian Petrescu <apetresc@gmail.com>, December 2010
