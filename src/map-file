@@ -1,0 +1,7 @@
+NSSHOSTSLOCAL_0 {
+global:
+_nss_hostslocal_gethostbyaddr_r;
+_nss_hostslocal_gethostbyname_r;
+local:
+*;
+};
